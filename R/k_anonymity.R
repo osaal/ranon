@@ -5,6 +5,10 @@
 #' @param ... Two or more categorical variables using Tidyverse syntax (see Details)
 #'
 #' @returns Data frame containing all unique combinations whose counts fall under the supplied limit. Returns `NULL` if all combinations are above the limit.
+#' @import checkmate
+#' @import dplyr
+#' @import rlang
+#' @import cli
 #' @importFrom rlang .data
 #' @export
 #'
@@ -56,7 +60,7 @@ k_anonymity <- function(data, limit, ...) {
 
   # Crosstabulate and retrieve all unique combinations that fall below the limit
   low_count_cells <- as.data.frame(table(selected_data)) |>
-    dplyr::filter(.data[["Freq"]] < limit)
+    dplyr::filter(.data[["Freq"]] < limit) # nolint: object_usage_linter.
 
   # Exit early if no cells fall below the threshold
   if (length(low_count_cells) == 0) {

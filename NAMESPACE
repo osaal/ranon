@@ -2,7 +2,8 @@
 
 export(check_count)
 export(k_anonymity)
+import(checkmate)
+import(cli)
+import(dplyr)
 import(rlang)
-importFrom(glue,glue)
-importFrom(lifecycle,deprecated)
 importFrom(rlang,.data)

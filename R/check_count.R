@@ -5,6 +5,10 @@
 #' @param col The variable to be checked in Tidyverse notation
 #'
 #' @returns Data frame containing all variable categories with counts less than a specified limit
+#' @import checkmate
+#' @import dplyr
+#' @import rlang
+#' @import cli
 #' @importFrom rlang .data
 #' @export
 #'
