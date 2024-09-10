@@ -4,7 +4,7 @@
 #' @param limit The value for k as an integer
 #' @param ... Two or more categorical variables using Tidyverse syntax (see Details)
 #'
-#' @returns Data frame containing all unique combinations whose counts fall under the supplied limit
+#' @returns Data frame containing all unique combinations whose counts fall under the supplied limit. Returns `NULL` if all combinations are above the limit.
 #' @export
 #'
 #' @details
@@ -29,16 +29,32 @@ k_anonymity <- function(data, limit, ...) {
       "x" = "You supplied the type {.cls class(data)}"
     ))
   }
+  if (!(checkmate::check_int(limit))) {
+    cli::cli_abort(c(
+      "{.var limit} must be a single integer",
+      "x" = "You supplied the type {.cls class(limit)}"
+    ))
+  }
 
   # Select data according to variables
   cols <- dplyr::quos(...)
-  selected_data <- data |> dplyr::select(!!!cols)
 
-  # Cross-tabulate selected variables
-  crosstab <- as.data.frame(table(selected_data))
+  # Capture error from incorrect cols and return more helpful error message
+  selected_data <- rlang::try_fetch(
+    data |> dplyr::select(!!!cols),
+    error = function(cnd) {
+      cli::cli_abort(c(
+        "All supplied columns must exist in {.var data}",
+        "X" = "You supplied the column names {sapply(cols, rlang::f_text)}",
+        "i" = "{.var data} contains the columns {names(data)}",
+        "i" = "Tip: Negated columns must also exist in the data"
+      ),
+      parent = cnd)
+    }
+  )
 
-  # Retrieve all unique combinations that fall below the k limit
-  low_count_cells <- crosstab |>
+  # Crosstabulate and retrieve all unique combinations that fall below the limit
+  low_count_cells <- as.data.frame(table(selected_data)) |>
     dplyr::filter("Freq" < limit)
 
   # Exit early if no cells fall below the threshold

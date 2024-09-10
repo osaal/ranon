@@ -14,7 +14,7 @@ k_anonymity(data, limit, ...)
 \item{...}{Two or more categorical variables using Tidyverse syntax (see Details)}
 }
 \value{
-Data frame containing all unique combinations whose counts fall under the supplied limit
+Data frame containing all unique combinations whose counts fall under the supplied limit. Returns \code{NULL} if all combinations are above the limit.
 }
 \description{
 Check multiple categorical variables for k-anonymity
