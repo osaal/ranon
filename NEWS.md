@@ -1,3 +1,8 @@
+# ranon (development version)
+
+* Add function `check_count()`
+* Fix data-masking in all functions
+
 # ranon 0.2.0
 
 # 0.2.0
