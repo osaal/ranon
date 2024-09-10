@@ -1,3 +1,4 @@
 # ranon (development version)
 
-* Initial CRAN submission.
+* Add function `k_anonymity()`
+* Breaking: Refactor function name from `k_anonymisation` to `k_anonymity`

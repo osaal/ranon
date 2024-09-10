@@ -16,12 +16,20 @@
 #'  C = sample(c(6, 7, 8), 100, replace = TRUE)
 #' )
 #' # Explicitly specify variables
-#' k_anonymisation(data, 5, A, B, C)
+#' k_anonymity(data, 5, A, B, C)
 #' # Using quosure slicing
-#' k_anonymisation(data, 5, A:C)
+#' k_anonymity(data, 5, A:C)
 #' # Using negation
-#' k_anonymisation(data, 5, !c(A:B))
-k_anonymisation <- function(data, limit, ...) {
+#' k_anonymity(data, 5, !c(A:B))
+k_anonymity <- function(data, limit, ...) {
+  # Argument checks
+  if (!(checkmate::check_data_frame(data) || checkmate::check_tibble(data))) {
+    cli::cli_abort(c(
+      "{.var data} must be a data frame or tibble",
+      "x" = "You supplied the type {.cls class(data)}"
+    ))
+  }
+
   # Select data according to variables
   cols <- dplyr::quos(...)
   selected_data <- data |> dplyr::select(!!!cols)
