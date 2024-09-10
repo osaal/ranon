@@ -31,7 +31,7 @@ k_anonymisation <- function(data, limit, ...) {
 
   # Retrieve all unique combinations that fall below the k limit
   low_count_cells <- crosstab |>
-    dplyr::filter(dplyr::.data$Freq < limit)
+    dplyr::filter("Freq" < limit)
 
   # Exit early if no cells fall below the threshold
   if (length(low_count_cells) == 0) {
