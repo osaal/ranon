@@ -1,6 +1,6 @@
 Package: ranon
 Title: Anonymise Human Data Sets
-Version: 0.1.0.9000
+Version: 0.1.0.9001
 Authors@R: 
     person("Oliver", "Saal", , "oliver.saal@proton.me", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-4870-0458"))
