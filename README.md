@@ -14,6 +14,7 @@ in early development.
 Currently, the package supports the following anonymity checks:
 
 - **k-anonymity** (function `k-anonymity()`)
+- **categorical variable cell counts** (function `check_count()`)
 
 ## Installation
 
